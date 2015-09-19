@@ -1,0 +1,52 @@
+{
+  "name": "randomcolor",
+  "version": "0.4.0",
+  "description": "For generating attractive random colors",
+  "main": "randomColor.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davidmerfield/randomColor.git"
+  },
+  "keywords": [
+    "attractive",
+    "random",
+    "color",
+    "generator"
+  ],
+  "author": {
+    "name": "David Merfield"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidmerfield/randomColor/issues"
+  },
+  "homepage": "http://llllll.li/randomColor/",
+  "spm": {
+    "main": "randomColor.js"
+  },
+  "_id": "randomcolor@0.4.0",
+  "_shasum": "f82000d2d084e3f530e4704018494d3f41706c5e",
+  "_from": "randomcolor@*",
+  "_npmVersion": "1.4.9",
+  "_npmUser": {
+    "name": "davidmerfield",
+    "email": "dmerfield@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "davidmerfield",
+      "email": "dmerfield@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "f82000d2d084e3f530e4704018494d3f41706c5e",
+    "tarball": "http://registry.npmjs.org/randomcolor/-/randomcolor-0.4.0.tgz"
+  },
+  "_resolved": "https://registry.npmjs.org/randomcolor/-/randomcolor-0.4.0.tgz"
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Node.js Chat</title>
+		<style type="text/css">
+			#chat{
+				height:500px;
+			}
+			#contentWrap{
+				display:none;
+			}
+			#chatWrap{
+				float:left;
+				border:2px solid black;
+			}
+			.error{
+				color:red;
+			}
+			.whisper{
+				color:gray;
+				font-style: italic;
+			}
+			.notif{
+				color:gray;
+				font-style:italic;
+			}
+		</style>
+	</head>
+	<body>
+		<!--Prompt user to enter username-->
+		<div id="nickWrap">
+			<p>Enter a username:</p>
+			<p id="nickError"></p>
+			<form id="setNick">
+				<input size = 30 id="nickname"></input>
+				<input type="submit" value="Join chat."></imput>
+			</form>
+		</div>
+
+		<div id="contentWrap">
+			<div id="yourname">You aren't logged in.</div>
+			<div id="chatWrap">
+				<!--Message display-->
+				<div id="chat"></div>
+				<!--form where messages are entered-->
+				<form id = "send-message">
+					<input size="30" id="message" autocomplete="off"></input>
+					<input type="submit" value="Send Message"></imput>
+				</form>
+			</div>
+			<div id="users"></div>
+		</div>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			jQuery(function(){
+				var socket = io.connect();
+				var $nicknameForm = $('#setNick')
+				var $nickError = $('#nickError');
+				var $nickBox = $('#nickname');
+				var $messageForm = $('#send-message');
+				var $users = $('#users');
+				var $messageBox = $('#message');
+				var $chat = $('#chat');
+				$nicknameForm.submit(function(e){
+					e.preventDefault();
+					var name = $nickBox.val();
+					socket.emit('new user', name, function(data){
+						if(data.valid){
+							$('#nickWrap').hide();
+							$('#contentWrap').show();
+							$('#yourname').html('You are logged in as <b>'+name+'</b>');
+						}else{
+							$nickError.html('That username is taken! Try again.');
+						}
+					});
+					$nickBox.val('');
+				});
+				$messageForm.submit(function(e){
+					e.preventDefault();
+					socket.emit('send message', $messageBox.val(), function(data){
+						$chat.append('<span class="error">'+data+"<span><br/>");
+					});
+					$messageBox.val('');
+				});
+
+				socket.on('usernames', function(data){
+					var html = '';
+					for(var i = 0; i < data.length; i++){
+						html += data[i]+'<br/>';
+					}
+					$users.html(html);
+				});
+
+				socket.on('load old msgs', function(docs){
+					for(var i = 0; i < docs.length; i++){
+						displayMsg(docs[i]);
+					}
+				});
+
+				function displayMsg(data){
+					$chat.append('<span class="msg"><b style="color: '+data.color+'">'+data.nick+': </b>'+data.msg+"<span><br/>");
+				}
+
+				socket.on('new message', function(data){
+					displayMsg(data);
+				});
+
+
+				socket.on('whisper', function(data){
+					$chat.append('<span class="whisper"><b style="color: '+data.color+'">'+data.nick+': </b>'+data.msg+"</span><br/>");
+				});
+
+				socket.on('left', function(data){
+					$chat.append('<span class="notif">    '+data+" left the chat.</span><br/>");
+					console.log(data+" left the chat.");
+				});
+
+				socket.on('joined', function(data){
+					$chat.append('<span class="notif">    '+data+" joined the chat.</span><br/>");
+					console.log(data+" joined the chat.");
+				});
+			});
+		</script>
+	</body>
+</html>
