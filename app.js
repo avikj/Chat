@@ -79,11 +79,11 @@ io.sockets.on('connection', function(socket){//when user connects to socket
 			}			
 		}
 		else{
-			var newMsg = new Chat({msg: msg, nick: socket.nickname, color:socket.color});
-			newMsg.save(function(err){
-				if(err) throw err;
+		//	var newMsg = new Chat({msg: msg, nick: socket.nickname, color:socket.color});
+		//	newMsg.save(function(err){
+		//		if(err) throw err;
 				io.sockets.emit('new message', {msg: msg, nick: socket.nickname, color: socket.color});
-			});
+		//	});
 		}
 	});
 
