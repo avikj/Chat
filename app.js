@@ -5,16 +5,16 @@ var express = require('express'),
 	//mongoose = require('mongoose'),
 	users = {};
 
-server.listen(process.env.PORT);
+server.listen(process.env.PORT || 3000);
 
-mongoose.connect('mongodb://localhost/chat', function(err){
+/*mongoose.connect('mongodb://localhost/chat', function(err){
 	if(err){
 		console.log(err);
 	}
 	else{
 		console.log('connected to mongodb');
 	}
-});
+});*/
 
 /*var chatSchema = mongoose.Schema({
 	nick: String,
