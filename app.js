@@ -5,7 +5,7 @@ var express = require('express'),
 	mongoose = require('mongoose');
 	users = {};
 
-server.listen(3000);
+server.listen(process.env.PORT);
 
 mongoose.connect('mongodb://localhost/chat', function(err){
 	if(err){
@@ -25,7 +25,7 @@ mongoose.connect('mongodb://localhost/chat', function(err){
 
 //var Chat = mongoose.model('Message', chatSchema);
 
-console.log('listening on port 3000');
+console.log('listening on port '+process.env.PORT);
 app.get('/', function(req, res){//return html page on get root dir request
 	res.sendFile(__dirname + '/index.html');
 });
