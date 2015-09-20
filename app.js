@@ -16,14 +16,14 @@ mongoose.connect('mongodb://localhost/chat', function(err){
 	}
 });
 
-var chatSchema = mongoose.Schema({
+/*var chatSchema = mongoose.Schema({
 	nick: String,
 	msg: String,
 	color: String,
 	created: {type: Date, default: Date.now}
-});
+});*/
 
-var Chat = mongoose.model('Message', chatSchema);
+//var Chat = mongoose.model('Message', chatSchema);
 
 console.log('listening on port 3000');
 app.get('/', function(req, res){//return html page on get root dir request
@@ -31,11 +31,11 @@ app.get('/', function(req, res){//return html page on get root dir request
 });
 
 io.sockets.on('connection', function(socket){//when user connects to socket
-	Chat.find({}, function(err, docs){
+	/*Chat.find({}, function(err, docs){
 		if(err) throw err;
 		console.log('sending old messages');
 		socket.emit('load old msgs', docs);
-	});
+	})*/
 
 	console.log('user has connected to server');
 	socket.on('new user', function(data, callback){
