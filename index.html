@@ -101,6 +101,7 @@
 
 				function displayMsg(data){
 					$chat.append('<span class="msg"><b style="color: '+data.color+'">'+data.nick+': </b>'+data.msg+"<span><br/>");
+					$chat.scrollTop(chat.scrollHeight);
 				}
 
 				socket.on('new message', function(data){
